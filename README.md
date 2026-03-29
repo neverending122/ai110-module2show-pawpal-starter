@@ -32,6 +32,25 @@ The scheduler goes beyond basic priority sorting with several additional feature
 - **Per-pet conflict detection** — after `generate_plan()`, `Scheduler.detect_conflicts()` checks every pair of scheduled tasks for time window overlap and stores warnings in `scheduler.conflicts`. The schedule is not modified; warnings are returned so the owner can decide how to resolve them.
 - **Owner-level conflict detection** — `detect_owner_conflicts(schedulers)` merges all pets' schedules and checks for cross-pet overlaps, catching cases where the owner cannot physically attend to two pets at the same time.
 
+## Testing PawPal+
+
+Run the full test suite with:
+
+```bash
+python -m pytest
+```
+
+The tests in `tests/test_pawpal.py` cover:
+
+- **Task completion** — marking a task complete updates its status; completing a daily recurring task automatically creates a new task scheduled for the following day
+- **Scheduling within budget** — tasks are selected by priority (high → medium → low) and only included if they fit the owner's remaining time; skipped tasks are never backfilled
+- **Chronological ordering** — after `generate_plan()`, scheduled tasks are always returned in ascending time order regardless of the order they were added
+- **Recurring task logic** — daily tasks advance by 1 day, weekly by 7 days, including across month and year boundaries; one-off tasks return `None` on completion
+- **Conflict detection** — overlapping time windows on the same date are flagged; tasks on different dates or that are merely adjacent (no overlap) are not; duplicate start times are caught for both dated and undated tasks
+- **Cross-pet conflicts** — `detect_owner_conflicts()` catches schedule overlaps across multiple pets and identifies which pets are involved
+- **Filtering** — `filter_by_status()` correctly returns pending or completed tasks and respects an optional pet name filter
+
+4 stars in confidence
 ## Getting started
 
 ### Setup
