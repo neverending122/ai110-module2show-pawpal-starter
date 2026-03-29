@@ -1,17 +1,25 @@
 # PawPal+ Project Reflection
 
 ## 1. System Design
-
+3 core functions:
+- Add the pet
+- Add tasks
+- Show the schedule
 **a. Initial design**
 
 - Briefly describe your initial UML design.
 - What classes did you include, and what responsibilities did you assign to each?
-
+My UML design contains all of the objects that could be added with their main characteristics: pet, task. It also includes the owner who has the pets, and scheduler which contains tasks.
+My UML includes 4 classes: owner, pet,task, scheduler.
+Owner has a pet, a name, preferences, and the available time. 
+Pet has a name, species, breed, age, owner and tasks associated with it.
+Scheduler has an owner, pet, tasks, reasoning, and functions such as add/edit/display plan
+Task has a name, category, duration, priority, and whether it is completed or not.
 **b. Design changes**
 
 - Did your design change during implementation?
 - If yes, describe at least one change and why you made it.
-
+Slightly changed around how the classes interact with one another, now scheduler does not have a connection straight to the tasks but only has it through the owner or the pet
 ---
 
 ## 2. Scheduling Logic and Tradeoffs
