@@ -22,6 +22,16 @@ Your final app should:
 - Display the plan clearly (and ideally explain the reasoning)
 - Include tests for the most important scheduling behaviors
 
+## Smarter Scheduling
+
+The scheduler goes beyond basic priority sorting with several additional features:
+
+- **Time-based sorting** — tasks are scheduled by priority to fit within the owner's time budget, then reordered chronologically by their `HH:MM` time so the final plan reads naturally across the day.
+- **Recurring tasks** — tasks can be marked `"daily"` or `"weekly"`. Calling `Scheduler.complete_task()` marks the task done and automatically queues a new instance with the next calculated date (e.g. `2026-03-29` → `2026-03-30` for daily).
+- **Completion filtering** — `Scheduler.filter_by_status(completed, pet_name)` returns pending or completed tasks, optionally scoped to a specific pet.
+- **Per-pet conflict detection** — after `generate_plan()`, `Scheduler.detect_conflicts()` checks every pair of scheduled tasks for time window overlap and stores warnings in `scheduler.conflicts`. The schedule is not modified; warnings are returned so the owner can decide how to resolve them.
+- **Owner-level conflict detection** — `detect_owner_conflicts(schedulers)` merges all pets' schedules and checks for cross-pet overlaps, catching cases where the owner cannot physically attend to two pets at the same time.
+
 ## Getting started
 
 ### Setup

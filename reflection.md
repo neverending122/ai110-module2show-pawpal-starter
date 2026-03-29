@@ -33,7 +33,7 @@ Slightly changed around how the classes interact with one another, now scheduler
 
 - Describe one tradeoff your scheduler makes.
 - Why is that tradeoff reasonable for this scenario?
-
+I currently have scheduler per pet rather than per owner. The tradeoff in this case is that the scheduler is simpler and faster, but it causes more objects to be created.
 ---
 
 ## 3. AI Collaboration
